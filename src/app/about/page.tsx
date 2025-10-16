@@ -24,7 +24,7 @@ export default function AboutPage() {
             alt="Padmini Gudavalli"
             width={400}
             height={400}
-            className="rounded-full shadow-xl border-4 border-gold shadow-xl hover:scale-105 transition duration-300"
+            className="rounded-full border-4 border-gold shadow-xl hover:scale-105 transition duration-300"
           />
         </motion.div>
 

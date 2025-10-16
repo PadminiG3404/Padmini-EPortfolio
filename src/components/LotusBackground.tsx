@@ -1,27 +1,40 @@
 "use client";
 
+/// <reference types="react" />
 import React, { useEffect, useState } from "react";
 
 const LOTUS_COUNT = 40;
-const LOTUS_SIZE_RANGE = [32, 80];
+const LOTUS_SIZE_RANGE: [number, number] = [32, 80];
 const BUFFER = 24;
 
 function randomBetween(min: number, max: number) {
   return Math.random() * (max - min) + min;
 }
 
-function isOverlapping(a: any, b: any) {
+function isOverlapping(
+  a: { x: number; y: number; radius: number },
+  b: { x: number; y: number; radius: number }
+): boolean {
   const dx = a.x - b.x;
   const dy = a.y - b.y;
   const distance = Math.sqrt(dx * dx + dy * dy);
-  return distance < (a.radius + b.radius + BUFFER);
+  return distance < a.radius + b.radius + BUFFER;
 }
 
 export default function LotusBackground() {
-  const [lotuses, setLotuses] = useState<JSX.Element[]>([]);
+  const [lotuses, setLotuses] = useState<React.ReactElement[]>([]);
+
 
   useEffect(() => {
-    const placed: any[] = [];
+    const placed: {
+    topPercent: number;
+    leftPercent: number;
+    size: number;
+    opacity: number;
+    radius: number;
+    x: number;
+    y: number;
+    }[] = [];
     const screenW = window.innerWidth;
     const screenH = window.innerHeight;
 
@@ -101,3 +114,5 @@ export default function LotusBackground() {
     </div>
   );
 }
+// Note: Ensure to have @types/react installed for TypeScript support
+// You can install it via npm: npm install --save-dev @types/react

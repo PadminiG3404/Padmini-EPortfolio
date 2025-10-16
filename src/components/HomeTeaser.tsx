@@ -5,8 +5,21 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
-import { fadeIn } from '@/lib/animations' // Create this helper for consistent motion presets
 import { Github, Linkedin, Mail } from 'lucide-react'
+import { Variants } from 'framer-motion';
+
+export const fadeIn = (delay: number): Variants => ({
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      delay,
+      ease: 'easeOut', // Use a valid easing function
+    },
+  },
+});
 
 export default function HeroTeaser() {
   return (
@@ -18,7 +31,7 @@ export default function HeroTeaser() {
     >
       {/* 🔹 Section 1: About Me Overview */}
       <div className="flex flex-col items-center">
-        <h2 className="text-2xl font-semibold text-charcoal mb-0 text-center mt-0 mb-6">About Me</h2>
+        <h2 className="text-2xl font-semibold text-charcoal text-center mt-0 mb-6">About Me</h2>
         <motion.div
           variants={fadeIn(0)}
           className="grid md:grid-cols-3 gap-4 bg-rose/30 p-8 rounded-lg shadow-md max-w-5xl w-full mx-auto"
@@ -94,8 +107,11 @@ export default function HeroTeaser() {
             <div className="mb-3">
               <span className="font-semibold text-charcoal text-m">Key Skills:</span>
               <ul className="flex flex-wrap gap-2 mt-2">
-                {card.skills.map((skill, i) => (
-                  <li key={i} className="bg-white/60 border border-gray-200 rounded px-2 py-0.5 text-sm font-medium text-charcoal">
+                {card.skills.map((skill: string, i: number) => (
+                  <li
+                    key={i}
+                    className="bg-white/60 border border-gray-200 rounded px-2 py-0.5 text-sm font-medium text-charcoal"
+                  >
                     {skill}
                   </li>
                 ))}
